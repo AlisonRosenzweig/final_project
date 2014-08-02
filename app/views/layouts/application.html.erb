@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FinalProject</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<%= link_to "Home", root_path, class: "navbar-brand" %>
+		</div>
+		<div id="navbar-main" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+			</ul>
+		</div>
+	</div>
+</div>
+<%= yield %>
+
+</body>
+</html>
