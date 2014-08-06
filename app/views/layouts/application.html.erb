@@ -8,17 +8,30 @@
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<%= link_to "Home", root_path, class: "navbar-brand" %>
+	
+		<div class="navbar-header" style>
+			<%= link_to "QuickStudy Tutors", root_path, class: "navbar-brand" %>
 		</div>
-		<div id="navbar-main" class="navbar-collapse collapse">
+		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="nav navbar-nav">
+				<li><a href="">About Us</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<% if user_signed_in? %> 
+					<li> <a href="">Signed in as <%= current_user.first_name %> </a></li>
+					<li> <%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+				<% else %>
+					<li><%= link_to('Login', new_user_session_path)  %></li>
+					<li><%= link_to('Sign up', new_user_registration_path) %>
+					</li>
+				<% end%>
 			</ul>
 		</div>
-	</div>
 </div>
-<%= yield %>
+
+<div class="yield" >
+			<%= yield %>
+</div>
 
 </body>
 </html>

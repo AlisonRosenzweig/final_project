@@ -30,6 +30,11 @@ html {
 body {
   margin: 0;
 }
+.yield{
+  margin-top:75px;
+  margin-left:25px;
+  margin-right: 25px;
+}
 article,
 aside,
 details,
