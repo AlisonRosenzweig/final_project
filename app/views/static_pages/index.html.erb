@@ -1,44 +1,25 @@
+
+
 <% if user_signed_in? %>
-<%if current_user.tutor? %>
-	<h3>Are you available to tutor?
-	<% if current_user.available? %>
-		<button class="btn btn-default btn-lg btn-block" type="button">
-			Sorry, I'm leaving. Mark me as unavailable!
-		</button>
-	<% else %>
-		<button class="btn btn-default" type="button">
-			YES!
-		</button>
-		<%= button_to "YES!", edit_user_registration_path, method: :patch,  %> </h3>
-	<% end %>
-	<% else %>
-
-<% end %>
-<% end %>
-
-<!-- <h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+<h3> Are you available?</h3>
+<% if current_user.available? %>
+    <%= form_for current_user, :url => { :action => 'update', :controller=>"devise/registrations"}, html: { method: :put } do |f| %>
+    <%= f.hidden_field :available, :value => false %>
+    <%= f.submit "Nope, Sorry.  Mark me as unavailable." %>
+    <% end %>
+  <% else %>
+    <%= form_for current_user, :url => { :action => 'update', :controller=>"devise/registrations"}, html: { method: :put } do |f| %>
+    <%= f.hidden_field :available, :value => true %>
+    <%= f.submit "Mark me as available!" %>
+    <% end %>
   <% end %>
+<% end %>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
 
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %></div>
 
-  <div><%= f.submit "Update" %></div>
-<% end %> -->
+
+
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare nunc ac tellus molestie, a vestibulum nunc luctus. Donec convallis, odio sed condimentum faucibus, libero diam pellentesque odio, et gravida tellus quam condimentum mauris. Ut eleifend ipsum vel dui fringilla rutrum. Mauris ornare ligula ac luctus mollis. Aliquam semper augue sem, vitae molestie turpis lacinia eu. Fusce at tristique mi, quis tincidunt est. Aliquam erat volutpat. Vivamus vulputate feugiat sapien laoreet sodales.</p>
 
