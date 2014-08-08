@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/users/tutor_sign_up' => 'registrations#new_tutor', as: nil
+    post 'static_pages/index' => 'users#mark_available'
+
   end
 
 
