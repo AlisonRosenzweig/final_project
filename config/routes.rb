@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/users/tutor_sign_up' => 'registrations#new_tutor', as: nil
-    post '/alison-rosenzweig' => 'tutor_statuses#mark_available'
-    post '/alison-rosenzweig' => 'tutor_statuses#mark_unavailable'
+    post '/update_availability' => 'tutor_statuses#mark_available'
+    post '/update_availability' => 'tutor_statuses#mark_unavailable'
 
   end
 
