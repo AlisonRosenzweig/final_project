@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, :controller => {:registrations => "registrations", :users => "users"}
+  devise_for :users, :controller => {:registrations => "registrations"}
 
   devise_scope :user do
     get '/users/tutor_sign_up' => 'registrations#new_tutor', as: nil
-    post '/alison-rosenzweig' => 'users#mark_available'
+    post '/alison-rosenzweig' => 'tutor_statuses#mark_available'
+    post '/alison-rosenzweig' => 'tutor_statuses#mark_unavailable'
 
   end
 

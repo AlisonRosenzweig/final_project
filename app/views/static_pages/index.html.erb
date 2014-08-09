@@ -1,27 +1,19 @@
 
 
 <% if user_signed_in? %>
-<h3> Are you available?</h3>
-<% if current_user.available? %>
-    <%= form_for current_user, :url => { :action => 'update', :controller=>"devise/registrations"}, html: { method: :put } do |f| %>
-    <%= f.hidden_field :available, :value => false %>
-    <%= f.submit "Nope, Sorry.  Mark me as unavailable." %>
+    <% if current_user.tutor? %>
+        <h3> Are you available?</h3>
+        <% if current_user.available? %>
+            <%= link_to "Mark me as unavailable", {:controller => 'tutor_statuses', :action => 'mark_unavailable'}, {:method => :post} %>
+        <% else %>
+            <%= link_to "Mark me as available", {:controller => 'tutor_statuses', :action => 'mark_available'}, {:method => :post} %>
+        <% end %>
+       <p> Current availability: <%= current_user.available %></p>
     <% end %>
-  <% else %>
-    <%= form_for current_user, :url => { :action => 'update', :controller=>"devise/registrations"}, html: { method: :put } do |f| %>
-    <%= f.hidden_field :available, :value => true %>
-    <%= f.submit "Mark me as available!" %>
-    <% end %>
-  <% end %>
 <% end %>
-<%= link_to "Mark me as available", :method => :post, :controller => 'users', :action => 'mark_available' %>
 
 
-
-
-
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare nunc ac tellus molestie, a vestibulum nunc luctus. Donec convallis, odio sed condimentum faucibus, libero diam pellentesque odio, et gravida tellus quam condimentum mauris. Ut eleifend ipsum vel dui fringilla rutrum. Mauris ornare ligula ac luctus mollis. Aliquam semper augue sem, vitae molestie turpis lacinia eu. Fusce at tristique mi, quis tincidunt est. Aliquam erat volutpat. Vivamus vulputate feugiat sapien laoreet sodales.</p>
+<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare nunc ac tellus molestie, a vestibulum nunc luctus. Donec convallis, odio sed condimentum faucibus, libero diam pellentesque odio, et gravida tellus quam condimentum mauris. Ut eleifend ipsum vel dui fringilla rutrum. Mauris ornare ligula ac luctus mollis. Aliquam semper augue sem, vitae molestie turpis lacinia eu. Fusce at tristique mi, quis tincidunt est. Aliquam erat volutpat. Vivamus vulputate feugiat sapien laoreet sodales.</p>
 
 <p>Mauris posuere sapien non est dictum tempor. Donec nibh magna, convallis nec turpis sit amet, condimentum condimentum tellus. Donec egestas felis sit amet tincidunt aliquet. Mauris ac est adipiscing, consectetur quam sed, tincidunt augue. Ut tempus libero non lacus aliquet, a tincidunt felis sollicitudin. Integer dui mauris, semper a enim sed, elementum varius diam. Vestibulum arcu quam, consequat eu sapien nec, ornare euismod nisi. Nunc nunc felis, suscipit sed malesuada id, volutpat nec enim. Morbi lobortis diam nec eros lobortis, in sodales leo venenatis. Ut faucibus semper magna, a sagittis purus sagittis eget. Suspendisse porta sapien sit amet dolor pulvinar, nec adipiscing urna volutpat. Sed a tortor lacus. Phasellus fringilla turpis id accumsan vehicula. Proin pulvinar elementum lacus sed egestas. Duis quam arcu, vestibulum sed eros vel, pretium tincidunt mauris.</p>
 
@@ -29,4 +21,4 @@
 
 <p>Pellentesque consequat, dui eget aliquet sollicitudin, odio magna vehicula odio, nec mattis elit nulla eu enim. Fusce interdum tortor id magna volutpat pulvinar. Phasellus ultrices lectus quis consequat elementum. Suspendisse sollicitudin iaculis urna, ut rhoncus urna faucibus eu. Sed rhoncus consequat nulla in viverra. Duis dapibus diam vel scelerisque porttitor. Pellentesque vitae lectus a urna sollicitudin ornare nec congue tellus. Duis leo orci, iaculis sit amet dui ut, fringilla consectetur velit. Quisque urna diam, dictum non scelerisque non, venenatis ut magna. Aliquam ac elit nec nisi sollicitudin condimentum et a ligula. Phasellus pretium elit massa, non hendrerit tortor accumsan ac. Vivamus diam libero, ultrices et est eget, blandit hendrerit nisl. Vestibulum dui tortor, accumsan ut malesuada non, scelerisque vitae dui. Curabitur vitae lectus nunc. Nunc placerat tristique convallis. Proin vehicula nibh id massa lobortis molestie.</p>
 
-<p>Nulla adipiscing lectus ac adipiscing vehicula. Sed sed varius dolor. Integer imperdiet sapien lacinia ante tincidunt, ac ultrices lectus placerat. Pellentesque congue augue orci, mollis mattis eros auctor non. Suspendisse tristique blandit nisl, id suscipit nunc vulputate sit amet. Ut at odio congue massa semper hendrerit ac non tortor. Vestibulum suscipit vestibulum magna ac mattis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer nec sapien eros. In ac urna in leo auctor tincidunt viverra ut nunc. Etiam feugiat ipsum et eros laoreet pharetra. </p>
+<p>Nulla adipiscing lectus ac adipiscing vehicula. Sed sed varius dolor. Integer imperdiet sapien lacinia ante tincidunt, ac ultrices lectus placerat. Pellentesque congue augue orci, mollis mattis eros auctor non. Suspendisse tristique blandit nisl, id suscipit nunc vulputate sit amet. Ut at odio congue massa semper hendrerit ac non tortor. Vestibulum suscipit vestibulum magna ac mattis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer nec sapien eros. In ac urna in leo auctor tincidunt viverra ut nunc. Etiam feugiat ipsum et eros laoreet pharetra. </p> -->
