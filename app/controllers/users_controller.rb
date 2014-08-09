@@ -1,4 +1,4 @@
-class users::userController < Devise::userController
+class UsersController < ApplicationController < Devise::userController
   def new
      super
   end

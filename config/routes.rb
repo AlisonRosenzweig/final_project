@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, :controller => {:registrations => "registrations"}
+  devise_for :users, :controller => {:registrations => "registrations", :users => "users"}
 
   devise_scope :user do
     get '/users/tutor_sign_up' => 'registrations#new_tutor', as: nil
-    post 'static_pages/index' => 'users#mark_available'
+    post '/alison-rosenzweig' => 'users#mark_available'
 
   end
 
