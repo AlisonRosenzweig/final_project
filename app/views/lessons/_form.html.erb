@@ -1,7 +1,7 @@
 <%= form_for(@lesson) do |f| %>
 	<% if @lesson.errors.any? %>
 		<div id="error_explanation">
-			<h2><%pluralize(@lesson.errors.count, "error") %> stoped you from requesting a tutor: </h2>
+			<h2><%pluralize(@lesson.errors.count, "error") %> stopped you from requesting a tutor: </h2>
 			<ul>
 				<% @lesson.errors.full_messages.each do |message| %>
 				<li><%= message %></li>
@@ -11,6 +11,8 @@
 	<% end %>
 
 	<div class="field">
-		<%= f.label :topic %>
+		<%= f.label "What are you stuck on?"%><br />
 		<%= f.text_area :topic %>
 	</div>
+	<%= f.submit "Get me a tutor now!" %>
+<% end %>

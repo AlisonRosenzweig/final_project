@@ -1,3 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <!-- I'll put the drawingboard here when i figure out how to do it...-->
+<br /> <br />
+<div id="whiteboard"></div>
+
+<style>
+    #whiteboard {
+        width: 500px;
+        height: 500px;
+    }
+</style>
+
+<script>
+    var customBoard2 = new DrawingBoard.Board('whiteboard', {
+	controls: [
+		'Color',
+		{ DrawingMode: { filler: false } },
+		'Navigation',
+		'Download'
+	],
+	size: 1,
+	webStorage: 'local',
+	});
+
+
+
+    function blah(){
+    	console.log("dawing...");
+    }
+	customBoard2.ev.bind('board:drawing', blah);
+
+</script>

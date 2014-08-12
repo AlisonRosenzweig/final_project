@@ -3,10 +3,12 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/users/tutor_sign_up' => 'registrations#new_tutor', as: nil
-    post '/update_availability' => 'tutor_statuses#mark_available'
-    post '/update_availability' => 'tutor_statuses#mark_unavailable'
+    post '/mark_available' => 'tutor_statuses#mark_available'
+    post '/mark_unavailable' => 'tutor_statuses#mark_unavailable'
 
   end
+
+  resources :lessons
 
 
   # The priority is based upon order of creation: first created -> highest priority.

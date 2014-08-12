@@ -15,7 +15,7 @@
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
-   <% if :tutor_flag %>
+   <% if :tutor_flag == true %>
    <%= f.hidden_field :tutor, :value => true %>
    <% else%>
    <%= f.hidden_field :tutor, :value => false %>

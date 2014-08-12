@@ -5,10 +5,14 @@
         <h3> Are you available?</h3>
         <% if current_user.available == true %>
             <%= link_to "Mark me as unavailable", {:controller => 'tutor_statuses', :action => 'mark_unavailable'}, {:method => :post} %>
+            <p> You're currently listed as available</p>
         <% else %>
             <%= link_to "Mark me as available", {:controller => 'tutor_statuses', :action => 'mark_available'}, {:method => :post} %>
+            <p> You're currently listed as unavailable</p>
         <% end %>
-       <p> Current availability: <%= current_user.available %> </p>
+    <% elsif current_user.tutor == false %>
+    <%= link_to "GET ME A TUTOR, NOW!", {controller: "lessons", action: "new"}, class: "btn btn-primary" %>
+
     <% end %>
 <% end %>
 
