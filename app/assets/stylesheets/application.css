@@ -19,7 +19,7 @@
   width: 300px;
   height: 300px;
   clear: both;
-  z-index: 0;
+  display: inline-block;
 }
 
 @import url("//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic");

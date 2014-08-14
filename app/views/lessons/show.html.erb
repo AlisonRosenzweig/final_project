@@ -4,6 +4,8 @@
 <br /> <br />
 <div id="whiteboard"></div>
 
+<img src="" class="board_img"></img>
+
 <style>
     #whiteboard {
         width: 500px;
@@ -26,8 +28,10 @@
 
 
     function blah(){
-    	console.log("dawing...");
+    	console.log(this);
+    	var blah = localStorage.getItem("drawing-board-whiteboard");
+    	$('.board_img').attr("src", blah);
     }
-	customBoard2.ev.bind('board:drawing', blah);
+	customBoard2.ev.bind('board:stopDrawing', blah);
 
 </script>
