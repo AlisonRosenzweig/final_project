@@ -2,9 +2,9 @@
 
 <!-- I'll put the drawingboard here when i figure out how to do it...-->
 <br /> <br />
-<div id="whiteboard"></div>
+<div id="whiteboard" data-lessonid="<%= @lesson.id %>"></div>
 
-<img src="" class="board_img"></img>
+<img src="" class="board_img" ></img>
 
 <style>
     #whiteboard {
@@ -12,6 +12,7 @@
         height: 500px;
     }
 </style>
+<script src="//js.pusher.com/2.2/pusher.min.js"></script>
 
 <script>
     var customBoard2 = new DrawingBoard.Board('whiteboard', {
@@ -25,13 +26,24 @@
 	webStorage: 'local',
 	});
 
-
-
-    function blah(){
-    	console.log(this);
-    	var blah = localStorage.getItem("drawing-board-whiteboard");
-    	$('.board_img').attr("src", blah);
-    }
-	customBoard2.ev.bind('board:stopDrawing', blah);
+ //    function blah(){
+ //    	console.log(this);
+ //    	var blah = localStorage.getItem("drawing-board-whiteboard");
+ //    	$('.board_img').attr("src", blah);
+ //    }
+	// customBoard2.ev.bind('board:stopDrawing', blah);
 
 </script>
+
+<script>
+var pusher = new Pusher('9a14047c1a26a60a9e48')
+var lesson = $('#whiteboard').data('lessonid')
+var channel = pusher.subscribe("lesson")
+function blah(){
+	console.log(this);
+	var blah = localStorage.getItem("drawing-board-whiteboard");
+	$('.board_img').attr("src", blah);
+}
+chanel.bind('board:stopDrawing', blah())
+</script>
+
