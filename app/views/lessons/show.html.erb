@@ -2,48 +2,75 @@
 
 <!-- I'll put the drawingboard here when i figure out how to do it...-->
 <br /> <br />
-<div id="whiteboard" data-lessonid="<%= @lesson.id %>"></div>
+<div id="drawing-place"></div>
+	<script src="paul-board.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	  // grab the div out of the HTML. "document.getElementById" is useful!
+	  var drawingPlaceDiv = document.getElementById("drawing-place");
 
-<img src="" class="board_img" ></img>
+	  // Call the "PaulBoard" function (defined in paul-board.js) with
+	  // the div that we want to be our drawing area.
+	  // Store the object "PaulBoard" returns in "paulBoard".
+	  // Clearly, I'm great at naming things.
+	  var paulBoard = PaulBoard(drawingPlaceDiv);
 
-<style>
-    #whiteboard {
-        width: 500px;
-        height: 500px;
-    }
-</style>
-<script src="//js.pusher.com/2.2/pusher.min.js"></script>
+	  // Set the "drawingStoppedCallback" attribute on the "paulBoard" object.
+	  // In Javascript, objects are essentially hashes. So we're setting the key
+	  // "drawingStoppedCallback" in the "paulBoard" hash.
+	  // What's the value? It's a function that we want to be called when the user
+	  // on this page stops dragging their mouse
+	  paulBoard.drawingStoppedCallback = function (points) {
+	    // "points" is an array
+	    // "msg" is a string representing that array
+	    // We can't sent arrays or hashes over websockets, so we turn it into a
+	    // string of JSON. Then when the other person receives that string,
+	    // they convert it back into an array and give it to their "PaulBoard" to draw.
+	    var msg = JSON.stringify(points);
+	    ws.send(msg);
+	  }
 
+	  // Create a websocket.
+	  var ws = new WebSocket("ws://paulrosenzweig.com/simple-pusher/room-name");
+	  // You can send whatever message you want to this websocket.
+	  // Anyone else connected to the same room will receive the message.
+	  // Out of laziness, since you are connected to that room, you will receive the message you sent.
+
+	  // "new WebSocket" returns a WebSocket object.
+	  // Just like above we are going to set properties on that object to functions.
+
+	  // This function gets called when "ws" opens its connection.
+      ws.onopen = function() {
+        console.log("open");
+      };
+	  
+	  // I bet you can guess when these next three functions get called.
+      ws.onerror = function(e) {
+        console.log("error", e);
+      };
+      ws.onclose = function(e) {
+        console.log("close", e);
+      };
+      ws.onmessage = function(messageEvent) {
+	    // This code is called when "ws" receives a message.
+	    // It's passed a big object (which I called "messageEvent")
+	    // The only property in that object that I'm using is "data".
+	    var points = JSON.parse(messageEvent.data)
+	    // "messageEvent.data" was a string, but "points" is an array.
+	    // Now we can give that array of points to the "PaulBoard"
+	    paulBoard.drawPoints(points);
+      };
+
+	</script>
 <script>
-    var customBoard2 = new DrawingBoard.Board('whiteboard', {
-	controls: [
-		'Color',
-		{ DrawingMode: { filler: false } },
-		'Navigation',
-		'Download'
-	],
-	size: 1,
-	webStorage: 'local',
-	});
+// var pusher = new Pusher('9a14047c1a26a60a9e48')
+// var lesson = $('#whiteboard').data('lessonid')
+// var channel = pusher.subscribe("private-lesson")
+// function blah(){
+// 	console.log(this);
+// 	var blah = localStorage.getItem("drawing-board-whiteboard");
+// 	$('.board_img').attr("src", blah);
+// }
 
- //    function blah(){
- //    	console.log(this);
- //    	var blah = localStorage.getItem("drawing-board-whiteboard");
- //    	$('.board_img').attr("src", blah);
- //    }
-	// customBoard2.ev.bind('board:stopDrawing', blah);
-
-</script>
-
-<script>
-var pusher = new Pusher('9a14047c1a26a60a9e48')
-var lesson = $('#whiteboard').data('lessonid')
-var channel = pusher.subscribe("lesson")
-function blah(){
-	console.log(this);
-	var blah = localStorage.getItem("drawing-board-whiteboard");
-	$('.board_img').attr("src", blah);
-}
-chanel.bind('board:stopDrawing', blah())
-</script>
+// channel.bind('board:stopDrawing', blah)
+// </script>
 

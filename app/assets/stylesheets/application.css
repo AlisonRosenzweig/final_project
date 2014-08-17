@@ -14,13 +14,22 @@
  *= require_self
  */
 
+#drawing-place {
+  width: 600px;
+  height: 400px;
+  background: #eee;
+  }
 
-#whiteboard {
-  width: 300px;
-  height: 300px;
-  clear: both;
-  display: inline-block;
-}
+#drawing-place path {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #888;
+  }
+    
+#drawing-place svg {
+  width: 100%;
+  height: 100%;
+  }
 
 @import url("//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic");
 /*!
