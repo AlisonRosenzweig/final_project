@@ -3,7 +3,6 @@ class LessonsController < ApplicationController
 	require 'twilio-ruby'
 
 	def show
-		@lesson
 	end
 
 	def new
