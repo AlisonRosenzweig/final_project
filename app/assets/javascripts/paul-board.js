@@ -1,21 +1,29 @@
 (function () {
+	var getXY = function (e) {
+		var point = {
+			x: e.pageX - e.target.parentElement.offsetLeft,
+			y: e.pageY - e.target.parentElement.offsetTop,
+		};
+		return point;
+	}
+	
 	var hackyDragEvent = function(element, handlers) {
 		var isMouseDown = false;
 
 		element.addEventListener("mousemove", function (e) {
 			if (isMouseDown) {
-				handlers.dragMove(e.offsetX, e.offsetY);
+				handlers.dragMove(getXY(e));
 			}
 		});
 
 		element.addEventListener("mousedown", function (e) {
 			isMouseDown = true;
-			handlers.dragStart(e.offsetX, e.offsetY);
+			handlers.dragStart(getXY(e));
 		});
 
 		element.addEventListener("mouseup", function (e) {
 			isMouseDown = false;
-			handlers.dragEnd(e.offsetX, e.offsetY);
+			handlers.dragEnd(getXY(e));
 		});	
 	}
 
@@ -35,6 +43,7 @@
 		divElement.appendChild(svgElement);
 
 		var newPath = function (points) {
+			console.log("new path");
 			var element = document.createElementNS("http://www.w3.org/2000/svg", "path");
 			svgElement.appendChild(element);
 			if (points.length > 0) {
@@ -47,16 +56,16 @@
 		var currentPathElement = undefined;
 		var pointsForCurrentStroke = []
 		var dragHandlers = {
-			dragMove: function (x, y) {
-				pointsForCurrentStroke.push({x: x, y: y})
+			dragMove: function (point) {
+				pointsForCurrentStroke.push(point)
 				var pathString = pointToPathString(pointsForCurrentStroke);
 				currentPathElement.setAttributeNS(null, "d", pathString);
 			},
-			dragStart: function (x, y) {
-				currentPathElement = newPath([]);
+			dragStart: function (point) {
+				currentPathElement = newPath([point]);
 			},
-			dragEnd: function (x, y) {
-				if (pointsForCurrentStroke.length === 0) {
+			dragEnd: function (point) {
+				if (pointsForCurrentStroke.length === 1) {
 					currentPathElement.remove();
 				} else if (paulBoard.drawingStoppedCallback) {
 					paulBoard.drawingStoppedCallback(pointsForCurrentStroke)
@@ -73,4 +82,3 @@
 		return pb;
 	}
 })()
-

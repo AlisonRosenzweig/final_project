@@ -4,7 +4,14 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :first_name %><br />
-  	<%= f.text_area :first_name %>
+  	<%= f.text_field :first_name %></div>
+
+  <div><%= f.label :last_name %> <br />
+    <%= f.text_field :last_name %></div>
+
+  <div><%= f.label :phone_number %><br />
+    <%= telephone_field(:user, :phone) %>
+  </div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email, autofocus: true %></div>
@@ -20,8 +27,8 @@
    <% else%>
    <%= f.hidden_field :tutor, :value => false %>
    <% end %>
-
-
+   <br />
+   
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 

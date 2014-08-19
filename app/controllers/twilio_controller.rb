@@ -7,11 +7,14 @@ class TwilioController < ApplicationController
 
 	skip_before_action :verify_authenticity_token
 
-	def voice
-		response = Twilio::TwiML::Response.new do |r|
-			r.Say 'Sorry, this number only makes outgoing calls.  Go to the website and contact us with any concerns.', :voice => 'alice'
-		end
+	def send_tutor_request
+		account_sid = 
+		auth_token = 
+		@client = Twilio::REST::Client.new account_sid, auth_token
 
-		render_twiml response
+		@client.account.messages.create({
+			:from => '+16173408968'
+			})
 	end
+
 end

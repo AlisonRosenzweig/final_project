@@ -1,6 +1,8 @@
 class LessonsController < ApplicationController
-	before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+	before_action :set_lesson, only: [:show, :edit, :update, :destroy, :tutor_request]
 	require 'twilio-ruby'
+
+	skip_before_action :verify_authenticity_token
 
 	def show
 	end
@@ -23,6 +25,27 @@ class LessonsController < ApplicationController
 		end
 	end
 
+
+	def find_tutor
+		available_tutors = []
+		available_tutors.push(User.where(available: true).all)
+		@potential_tutor = available_tutors.sample
+			
+	end
+
+
+	def tutor_request
+		account_sid = 'ACd9b890783cf8f0fa55ee0954796dbb6a'
+		auth_token = 'aff84a169feb8699c33d0d21828690ed'
+		@client = Twilio::REST::Client.new account_sid, auth_token
+
+		@client.account.messages.create({
+			:from => '+16173408968',
+			:to => '#{@potential_tutor.phone}',
+			:body => 'Hey #{@potential_tutor.first_name}, you\'ve got a lesson request!  Can you help with #{@lesson.topic}'
+			})
+	end
+
 	private
 
 	def set_lesson
@@ -32,20 +55,5 @@ class LessonsController < ApplicationController
 	def lesson_params
 		params.require(:lesson).permit(:topic)
 	end
-
-	# def find_tutor
-	# 	available_tutors = []
-	# 	available_tutors.push(User.where(available: true))
-	# 	tutor_pick = available_tutors.sample
-
-	# 	call_number = tutor_pick.phone
-	# 	account_sid = 'ACd9b890783cf8f0fa55ee0954796dbb6a'
-	# 	auth_token = 'aff84a169feb8699c33d0d21828690ed'
-	# 	@client = Twilio::REST::Client.new account_sid, auth_token
-
-	# 	call = @client.account.calls.create (:url => "https://demo.twilio.com/welcome/voice/")
-	# 	:to => call_number.to_s,
-	# 	:from => "+16173408968"
-
 
 end

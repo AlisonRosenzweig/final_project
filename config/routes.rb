@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     post '/mark_unavailable' => 'tutor_statuses#mark_unavailable'
   end
 
+   post '/2010-04-01/Accounts/ACd9b890783cf8f0fa55ee0954796dbb6a/Messages' => 'lessons#tutor_request'
+
   resources :lessons
 
 
@@ -23,7 +25,6 @@ Rails.application.routes.draw do
 
   get 'users/tutor_sign_up' => 'registrations#new_tutor'
 
-  post 'twilio/voice' => 'twilio#voice'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
